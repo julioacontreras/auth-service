@@ -1,0 +1,10 @@
+# ignore dependencies
+node_modules/
+
+# ignore distribution
+dist/
+
+# ignore all logs
+*.log
+
+.env

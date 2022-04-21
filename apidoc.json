@@ -1,0 +1,7 @@
+{
+    "name": "API Sonora",
+    "version": "1.0.0",
+    "description": "API to detect sound anomalies",
+    "title": "Sonora",
+    "url" : "https://api.github.com/v1"
+  }
