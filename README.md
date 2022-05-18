@@ -1,6 +1,6 @@
 # Backend
 
-Backend sonora - API to detect sound anomalies
+Backend - API v1.0
 
 ## 🚀 Get started
 
@@ -27,12 +27,12 @@ Backend sonora - API to detect sound anomalies
     npm run doc
 
     # view documentation
-    npm run view:doc
+    npm run doc:view
 ```
 
 ## Tests
 
 ```console
     # run tests
-    npm run test
+    npm run test:unit
 ```
