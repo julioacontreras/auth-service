@@ -1,0 +1,6 @@
+POST http://localhost:4000/api/auth/is-authenticated HTTP/1.1
+content-type: application/json
+
+{
+    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImtlbkB2aXAuZXMiLCJpYXQiOjE2NTI5NjYyNzcsImV4cCI6MTY1MzA1MjY3N30.VzoOIcvFDypVTB11y4hZTFxMfV7_9TRyq5O92vfoS1g"
+}

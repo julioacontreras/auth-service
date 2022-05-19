@@ -6,4 +6,10 @@ export type Credential = {
 
 export type FunctionReturnBoolean = () => boolean
 
-export type FunctionEmailExist = (email: string) => boolean
+export type FunctionEmailExist = (email: string) => Promise<boolean>
+
+export type ResponsePrepareRegister = {
+    salt: string;
+    password: string;
+    accessToken: string;
+}

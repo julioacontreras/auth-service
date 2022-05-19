@@ -1,0 +1,9 @@
+POST http://localhost:4000/api/auth/register HTTP/1.1
+content-type: application/json
+
+{
+    "name": "admin",
+    "email": "admin@vip.es",
+    "password": "1234",
+    "type": "admin"
+}

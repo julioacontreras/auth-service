@@ -1,18 +1,19 @@
 import { Credential, FunctionEmailExist } from '@/adapters/auth/types'
 import { useSecurity } from './services/security'
 import { useToken } from './services/token'
+import { ResponsePrepareRegister } from '@/adapters/auth/types'
 
-export function prepareToRegister (
+export async function prepareToRegister (
   credential: Credential,
   thisEmailExistis: FunctionEmailExist,
-) {
-  const secretToken = process.env.SECRET_TOKEN
+): Promise<ResponsePrepareRegister> {
+  const tokenSecret = process.env.TOKEN_SECRET
 
-  if (!secretToken) {
+  if (!tokenSecret) {
     throw 'Dont have secret token'
   }
 
-  if (thisEmailExistis(credential.email)) {
+  if (await thisEmailExistis(credential.email)) {
     throw 'Email exist, is not possible create user'
   }
     
@@ -31,7 +32,11 @@ export function prepareToRegister (
     throw 'Error generating hash'
   }
 
-  const { generateAccessToken } = useToken(secretToken)
+  const { generateAccessToken } = useToken(tokenSecret)
 
-  return generateAccessToken(credential.email)
+  return {
+    salt: credential.salt,
+    password: credential.password,
+    accessToken: generateAccessToken(credential.email)
+  }
 }

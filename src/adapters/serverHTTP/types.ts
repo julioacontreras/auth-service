@@ -5,6 +5,11 @@ export type HTTPResponse = {
     status: string
 };
 
+export type HTTPReturn = {
+    response: HTTPResponse,
+    session?: unknown
+};
+
 export type HTTPRequest = {
     command: UseCaseName;
     settings: {
@@ -16,7 +21,7 @@ export type HTTPRequest = {
  *  Use case function. Here have use case instructions to be executed.
  *  
  */
-export type UseCaseFunction = (settings: unknown) => Promise<HTTPResponse> | HTTPResponse;
+export type UseCaseFunction = (settings: unknown) => Promise<HTTPReturn> | HTTPReturn;
 
 /** @type UseCaseRoute
  *  Use case settings. Here have function and route to each use case.

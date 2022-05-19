@@ -1,21 +1,25 @@
 import { auth } from '@/adapters/auth'
-import { HTTPResponse } from '@/adapters/serverHTTP/types'
+import { HTTPReturn } from '@/adapters/serverHTTP/types'
 
-export const logoutCaseUse = (): HTTPResponse => {
+export const logoutCaseUse = (): HTTPReturn => {
   try {
     const logout = auth.useLogout(() => { return true })
 
     const isSuccessful = logout()
     return {
-      result: {},
-      status: isSuccessful ? 'ok' : 'usert-not-found'
+      response: {
+        result: {},
+        status: isSuccessful ? 'ok' : 'usert-not-found'
+      }
     }
 
   } catch(e) {
     console.error(e)
     return {
-      result: {},
-      status: 'internal-error'
+      response: {
+        result: {},
+        status: 'internal-error'
+      }
     }
   }
 }

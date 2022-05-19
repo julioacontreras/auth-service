@@ -2,7 +2,7 @@ import { setLogger } from '@/adapters/logger'
 
 const logger = {
   info (message: string) {
-    console.log(message)
+    console.info(message)
   },
   error (message: string) {
     console.error(message)

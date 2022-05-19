@@ -11,9 +11,11 @@ export function createUseCases (useCases: UseCaseMap, server: FastifyInstance) {
 
       if (!useCaseExecute) {
         throw `Not exist use case ${key}`
-      }
+      } 
 
-      return await useCaseExecute({ params: request.body })
+      const returnHTTP = await useCaseExecute({ body: request.body })
+
+      return returnHTTP.response
     })
   })
 }

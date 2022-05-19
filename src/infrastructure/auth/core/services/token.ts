@@ -1,16 +1,39 @@
+// https://jwt.io/
+
 import jwt from 'jsonwebtoken'
 
-export function useToken (tokenSecret: string) {
+type DecodedMessage = {
+  email: string;
+  iat: string;
+  exp: string;
+}
 
+export function useToken (tokenSecret: string) {
+  /**
+   *  Generate access token with the user email
+   * 
+   * @param email 
+   * @returns string access token
+   */
   function generateAccessToken (email: string) {
     return jwt.sign({ email }, tokenSecret, { expiresIn: '1d' })
   }
 
+  /**
+   *  Verify access token with the user email
+   * 
+   * @param tokenAccess 
+   * @param email 
+   * @returns string access token
+   */
   function verifyAccessToken (tokenAccess: string): Promise<boolean> {
     return new Promise((resolve) => {
-      jwt.verify(tokenAccess, tokenSecret, (err: unknown) => {
-        resolve(!err ? true : false)
-      })
+      try {
+        jwt.verify(tokenAccess, tokenSecret) as unknown as DecodedMessage
+        resolve(true)
+      } catch (err) {
+        resolve(false)
+      }
     })    
   }
 
