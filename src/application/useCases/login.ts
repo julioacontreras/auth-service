@@ -1,5 +1,7 @@
+import { logger } from '@/adapters/logger'
 import { auth } from '@/adapters/auth'
 import { Credential } from '@/adapters/auth/types'
+import { statusHTTP } from '@/adapters/serverHTTP'
 import { HTTPReturn } from '@/adapters/serverHTTP/types'
 import { database } from '@/adapters/database'
 
@@ -20,11 +22,8 @@ export const loginCaseUse = async (settings: unknown): Promise<HTTPReturn> => {
     
     if (!credential) {
       return {
-        response: {
-          result: {},
-          status: 'user-or-password-not-found'
-        },
-        code: 401
+        response: {},
+        code: statusHTTP.UNAUTHORIZED 
       } 
     }
 
@@ -32,22 +31,16 @@ export const loginCaseUse = async (settings: unknown): Promise<HTTPReturn> => {
 
     return {
       response: {
-        result: {
-          accessToken
-        },
-        status: accessToken ? 'ok' : 'error',
+        token: accessToken
       },
-      code: 200
+      code: statusHTTP.OK
     }
 
   } catch (e) {
-    console.error(e)
+    logger.error(e as string)
     return {
-      response: {
-        result: {},
-        status: 'internal-error',
-      },
-      code: 500
+      response: {},
+      code: statusHTTP.INTERNAL_SERVER_ERROR
     }        
   }
 }

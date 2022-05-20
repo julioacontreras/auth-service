@@ -1,4 +1,6 @@
+import { logger } from '@/adapters/logger'
 import { auth } from '@/adapters/auth'
+import { statusHTTP } from '@/adapters/serverHTTP'
 import { HTTPReturn } from '@/adapters/serverHTTP/types'
 
 export const logoutCaseUse = (): HTTPReturn => {
@@ -7,21 +9,15 @@ export const logoutCaseUse = (): HTTPReturn => {
 
     const isSuccessful = logout()
     return {
-      response: {
-        result: {},
-        status: isSuccessful ? 'ok' : 'usert-not-found'
-      },
-      code: isSuccessful ? 200 : 401
+      response: {},
+      code: isSuccessful ? statusHTTP.OK : statusHTTP.UNAUTHORIZED
     }
 
   } catch(e) {
-    console.error(e)
+    logger.error(e as string)
     return {
-      response: {
-        result: {},
-        status: 'internal-error'
-      },
-      code: 500
+      response: {},
+      code: statusHTTP.INTERNAL_SERVER_ERROR
     }
   }
 }

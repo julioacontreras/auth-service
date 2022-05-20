@@ -1,9 +1,6 @@
 export type UseCaseName = string
 
-export type HTTPResponse = {
-    result: unknown,
-    status: string
-};
+export type HTTPResponse = unknown;
 
 export type HTTPReturn = {
     response: HTTPResponse,

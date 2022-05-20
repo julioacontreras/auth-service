@@ -1,7 +1,8 @@
+import { logger } from '@/adapters/logger'
 import { auth } from '@/adapters/auth'
 import { ResponsePrepareRegister } from '@/adapters/auth/types'
-
 import { HTTPReturn } from '@/adapters/serverHTTP/types'
+import { statusHTTP } from '@/adapters/serverHTTP'
 import { database } from '@/adapters/database'
 
 type SettingsRegister = {
@@ -48,20 +49,16 @@ export const registerCaseUse = async (settings: unknown): Promise<HTTPReturn> =>
 
     return {
       response: {
-        result: { accessToken: result.accessToken },
-        status: 'ok'
+        token: result.accessToken
       },
-      code: 200
+      code: statusHTTP.OK
     }
 
   } catch (e) {
-    console.error(e)
+    logger.error(e as string)
     return {
-      response: {
-        result: {},
-        status: 'user-already-exists'
-      },
-      code: 500
+      response: {},
+      code: statusHTTP.INTERNAL_SERVER_ERROR
     }        
   }
 
