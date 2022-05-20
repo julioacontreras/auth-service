@@ -8,6 +8,7 @@ export type HTTPResponse = {
 export type HTTPReturn = {
     response: HTTPResponse,
     session?: unknown
+    code: number
 };
 
 export type HTTPRequest = {

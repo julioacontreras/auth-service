@@ -16,7 +16,8 @@ export const isAuthenticatedCaseUse = async (settings: unknown): Promise<HTTPRet
       result: {
         isSuccessful: await auth.isAuthenticated(s.body.accessToken)
       },
-      status: 'ok'  
-    }
+      status: 'ok'
+    },
+    code: 200
   }  
 }

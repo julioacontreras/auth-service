@@ -10,7 +10,8 @@ export const logoutCaseUse = (): HTTPReturn => {
       response: {
         result: {},
         status: isSuccessful ? 'ok' : 'usert-not-found'
-      }
+      },
+      code: isSuccessful ? 200 : 401
     }
 
   } catch(e) {
@@ -19,7 +20,8 @@ export const logoutCaseUse = (): HTTPReturn => {
       response: {
         result: {},
         status: 'internal-error'
-      }
+      },
+      code: 500
     }
   }
 }

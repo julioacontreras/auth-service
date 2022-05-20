@@ -6,16 +6,29 @@ export function createUseCases (useCases: UseCaseMap, server: FastifyInstance) {
   useCases.forEach((value, key) => {
     const useCaseRoute = value as unknown as UseCaseRoute
     
-    server.post(useCaseRoute.route, {}, async (request) => {
+    // -------------------------
+    //   route
+    // -------------------------    
+    server.post(useCaseRoute.route, {}, async (request, reply) => {
       const useCaseExecute = useCases.get(key)?.useCase
 
       if (!useCaseExecute) {
-        throw `Not exist use case ${key}`
+        return reply
+          .status(500)
+          .send({ status: `Not exist use case ${key}` })        
       } 
 
-      const returnHTTP = await useCaseExecute({ body: request.body })
+      try {
+        const returnHTTP = await useCaseExecute({ body: request.body })
+        return reply
+          .status(returnHTTP.code)
+          .send(returnHTTP.response)
+      } catch (err) {
+        return reply
+          .status(500)
+          .send({ status: 'internal-error' })
+      }
 
-      return returnHTTP.response
     })
   })
 }

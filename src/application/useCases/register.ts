@@ -39,6 +39,10 @@ export const registerCaseUse = async (settings: unknown): Promise<HTTPReturn> =>
       password: result.password,
       type: s.body.type,
       salt: result.salt,
+      city: '',
+      aboutMe: '',
+      rating: 0,
+      coins: 0,
       createAt: ''
     })
 
@@ -46,7 +50,8 @@ export const registerCaseUse = async (settings: unknown): Promise<HTTPReturn> =>
       response: {
         result: { accessToken: result.accessToken },
         status: 'ok'
-      }
+      },
+      code: 200
     }
 
   } catch (e) {
@@ -55,7 +60,8 @@ export const registerCaseUse = async (settings: unknown): Promise<HTTPReturn> =>
       response: {
         result: {},
         status: 'user-already-exists'
-      }
+      },
+      code: 500
     }        
   }
 

@@ -1,4 +1,4 @@
-export type UserSchema = {
+export type ClientEntity = {
     id?: string
     name: string
     email: string

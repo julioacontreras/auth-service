@@ -10,7 +10,7 @@ export function startServer (useCases: UseCaseMap): void {
   // -------------------------
   //   set CORS
   // -------------------------
-  if ((process.env.MODE === 'develop')) {
+  if ((process.env.NODE_ENV === 'development')) {
     server.register(import('@fastify/cors'))
   }
 

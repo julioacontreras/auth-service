@@ -22,8 +22,9 @@ export const loginCaseUse = async (settings: unknown): Promise<HTTPReturn> => {
       return {
         response: {
           result: {},
-          status: 'user-or-password-not-found'  
-        }
+          status: 'user-or-password-not-found'
+        },
+        code: 401
       } 
     }
 
@@ -34,11 +35,9 @@ export const loginCaseUse = async (settings: unknown): Promise<HTTPReturn> => {
         result: {
           accessToken
         },
-        status: accessToken ? 'ok' : 'error'
+        status: accessToken ? 'ok' : 'error',
       },
-      session: {
-        email: s.body.email
-      }
+      code: 200
     }
 
   } catch (e) {
@@ -46,8 +45,9 @@ export const loginCaseUse = async (settings: unknown): Promise<HTTPReturn> => {
     return {
       response: {
         result: {},
-        status: 'internal-error'
-      }
+        status: 'internal-error',
+      },
+      code: 500
     }        
   }
 }
