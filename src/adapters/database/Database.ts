@@ -1,10 +1,8 @@
-import { UserSchema } from './schemas/UserSchema'
-
 export interface Database {
     models: {
         User: () => {
-            findByEmail: (email: string) => Promise<UserSchema>
-            register: (user: UserSchema) => Promise<{ id:string }>
+            findByEmail: <T>(email: string) => Promise<T>
+            register: <T>(user: T) => Promise<{ id:string }>
         }
     }
 }

@@ -1,19 +1,22 @@
-import { UserSchema } from '@/adapters/database/schemas/UserSchema'
-
 import { database } from '../connector'
 
 export function useUserModel () {
   const User = database.collection('users')
 
-  async function findByEmail (email: string): Promise<UserSchema> {
-    return await User.findOne({ email }) as unknown as UserSchema
+  async function findByEmail <T> (email: string): Promise<T> {
+    return await User.findOne({ email }) as unknown as T
   }
 
-  async function register (user: UserSchema): Promise<{ id:string }> {
+  type ResponseRegister = {
+    id: string
+  }
+
+  async function register <T> (user: T): Promise<{ id:string }> {
     try {
-      const userSaved = await User.insertOne(user) as unknown as UserSchema
+      const userSaved = await User.insertOne(user) as unknown as T
+      const userSavedResponse = userSaved as unknown as ResponseRegister
       return {
-        id: userSaved?.id || ''
+        id: userSavedResponse.id
       }
 
     } catch (err) {

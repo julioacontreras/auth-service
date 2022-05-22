@@ -1,4 +1,4 @@
-export type UserPartySchema = {
+export type UserPartyEntity = {
     id: string
     name: string
     email: string

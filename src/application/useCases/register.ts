@@ -5,6 +5,8 @@ import { HTTPReturn } from '@/adapters/serverHTTP/types'
 import { statusHTTP } from '@/adapters/serverHTTP'
 import { database } from '@/adapters/database'
 
+import { UserEntity } from '@/domain/areaClient/entities/UserEntity'
+
 type SettingsRegister = {
     body: {
       name: string
@@ -16,7 +18,7 @@ type SettingsRegister = {
 
 async function thisEmailExists (email: string): Promise<boolean> {
   const userModel = database.models.User()
-  const user = await userModel.findByEmail(email)
+  const user = await userModel.findByEmail<UserEntity>(email)
   return Boolean(user)
 }
 
@@ -34,7 +36,7 @@ export const registerCaseUse = async (settings: unknown): Promise<HTTPReturn> =>
     ) as ResponsePrepareRegister
 
     const userModel = database.models.User()
-    userModel.register({
+    userModel.register<UserEntity>({
       name: s.body.name,
       email: s.body.email,
       password: result.password,

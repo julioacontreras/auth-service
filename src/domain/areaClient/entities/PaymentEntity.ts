@@ -1,4 +1,4 @@
-export type UserSchema = {
+export type UserEntity = {
     stripeId: string
     payments: [
         {
