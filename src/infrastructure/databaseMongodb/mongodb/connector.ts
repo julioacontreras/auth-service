@@ -6,9 +6,7 @@ export let client: MongoClient
 
 export async function run (uri: string): Promise<void> {
   const databaseName = process.env.DATABASE_NAME
-  if (!databaseName) {
-    throw 'Dont have database name'
-  }
+  if (!databaseName) throw 'Dont have database name'
 
   client = new MongoClient(uri)
   try {

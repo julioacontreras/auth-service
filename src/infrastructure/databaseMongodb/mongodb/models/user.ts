@@ -7,22 +7,15 @@ export function useUserModel () {
     return await User.findOne({ email }) as unknown as T
   }
 
-  type ResponseRegister = {
-    id: string
-  }
+  type ResponseRegister = { id: string }
 
   async function register <T> (user: T): Promise<{ id:string }> {
     try {
       const userSaved = await User.insertOne(user) as unknown as T
       const userSavedResponse = userSaved as unknown as ResponseRegister
-      return {
-        id: userSavedResponse.id
-      }
-
+      return { id: userSavedResponse.id }
     } catch (err) {
-      return {
-        id: ''
-      }
+      return { id: '' }
     }
   }
 

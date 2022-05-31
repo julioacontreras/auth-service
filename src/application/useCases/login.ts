@@ -6,6 +6,8 @@ import { HTTPReturn } from '@/adapters/serverHTTP/types'
 import { database } from '@/adapters/database'
 import { UserEntity } from '@/domain/areaClient/entities/UserEntity'
 
+import { RESPONSE_UNAUTHORIZED, RESPONSE_INTERNAL_SERVER_ERROR } from './responses'
+
 type SettingsLogin = {
     body: {
         email: string
@@ -17,17 +19,9 @@ export const loginCaseUse = async (settings: unknown): Promise<HTTPReturn> => {
   try {
 
     const s = settings as SettingsLogin
-
     const UserModel = database.models.User()
     const credential = await UserModel.findByEmail<UserEntity>(s.body.email) as unknown as Credential
-    
-    if (!credential) {
-      return {
-        response: {},
-        code: statusHTTP.UNAUTHORIZED 
-      } 
-    }
-
+    if (!credential) return RESPONSE_UNAUTHORIZED
     const accessToken = auth.login(s.body.email, s.body.password, credential)
 
     return {
@@ -39,9 +33,6 @@ export const loginCaseUse = async (settings: unknown): Promise<HTTPReturn> => {
 
   } catch (e) {
     logger.error(e as string)
-    return {
-      response: {},
-      code: statusHTTP.INTERNAL_SERVER_ERROR
-    }        
+    return RESPONSE_INTERNAL_SERVER_ERROR  
   }
 }

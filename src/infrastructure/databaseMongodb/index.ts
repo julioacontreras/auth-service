@@ -6,10 +6,7 @@ import { useUserModel } from './mongodb/models/user'
 
 async function useDatabase (): Promise<Database> {
   const urlConnection = process.env.MONGO_CONNECTION 
-
-  if (!urlConnection) {
-    throw 'Not exist url connection to mongoDB'
-  }
+  if (!urlConnection) throw 'Not exist url connection to mongoDB'
 
   await run(urlConnection)
 

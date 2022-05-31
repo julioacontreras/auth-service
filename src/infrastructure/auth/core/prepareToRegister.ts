@@ -8,14 +8,8 @@ export async function prepareToRegister (
   thisEmailExistis: FunctionEmailExist,
 ): Promise<ResponsePrepareRegister> {
   const tokenSecret = process.env.TOKEN_SECRET
-
-  if (!tokenSecret) {
-    throw 'Dont have secret token'
-  }
-
-  if (await thisEmailExistis(credential.email)) {
-    throw 'Email exist, is not possible create user'
-  }
+  if (!tokenSecret) throw 'Dont have secret token'
+  if (await thisEmailExistis(credential.email)) throw 'Email exist, is not possible create user'
     
   const {
     generateSalt,
@@ -28,9 +22,7 @@ export async function prepareToRegister (
   credential.salt = generateSalt()
   credential.password = generateHash( passwordPlain + credential.salt)
 
-  if (!verifyHash(passwordPlain + credential.salt, credential.password)) {
-    throw 'Error generating hash'
-  }
+  if (!verifyHash(passwordPlain + credential.salt, credential.password)) throw 'Error generating hash'
 
   const { generateAccessToken } = useToken(tokenSecret)
 

@@ -7,7 +7,7 @@ export function createUseCases (useCases: UseCaseMap, server: FastifyInstance) {
     const useCaseRoute = value as unknown as UseCaseRoute
     
     // -------------------------
-    //   route
+    //   route <=> use case
     // -------------------------    
     server.post(useCaseRoute.route, {}, async (request, reply) => {
       const useCaseExecute = useCases.get(key)?.useCase

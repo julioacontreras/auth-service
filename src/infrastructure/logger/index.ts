@@ -5,7 +5,7 @@ const logger = {
     console.info(message)
   },
   error (message: string) {
-    console.error(message)
+    console.error(`%c 💩 ${message}`, 'color: red')
   }
 }
 
