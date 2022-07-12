@@ -1,6 +1,6 @@
-# Backend
+# Authorization service
 
-Backend - API v1.0
+Authorization service - API v1.0
 
 ## 🚀 Get started
 

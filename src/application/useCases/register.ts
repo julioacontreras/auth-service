@@ -4,7 +4,7 @@ import { ResponsePrepareRegister } from '@/adapters/auth/types'
 import { HTTPReturn } from '@/adapters/serverHTTP/types'
 import { statusHTTP } from '@/adapters/serverHTTP'
 import { database } from '@/adapters/database'
-import { UserEntity } from '@/domain/areaClient/entities/UserEntity'
+import { UserEntity } from '@/domains/types/User'
 
 import { RESPONSE_INTERNAL_SERVER_ERROR } from './responses'
 
@@ -47,7 +47,8 @@ export const registerCaseUse = async (settings: unknown): Promise<HTTPReturn> =>
       aboutMe: '',
       rating: 0,
       coins: 0,
-      createAt: ''
+      createAt: '',
+      enabled: false
     })
 
     return {

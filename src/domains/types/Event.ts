@@ -1,12 +1,12 @@
-import { UserPartyEntity } from './UserPartyEntity'
+import { UserPartyType } from './UserParty'
 
-export type EventEntity = {
+export type EventType = {
     id?: string
     name: string
     address: string
     city: string
     expireAt: string
     createAt: string
-    people: [ UserPartyEntity ]
+    people: [ UserPartyType ]
     status: string
 }

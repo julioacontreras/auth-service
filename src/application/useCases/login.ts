@@ -4,7 +4,7 @@ import { Credential } from '@/adapters/auth/types'
 import { statusHTTP } from '@/adapters/serverHTTP'
 import { HTTPReturn } from '@/adapters/serverHTTP/types'
 import { database } from '@/adapters/database'
-import { UserEntity } from '@/domain/areaClient/entities/UserEntity'
+import { UserEntity } from '@/domains/types/User'
 
 import { RESPONSE_UNAUTHORIZED, RESPONSE_INTERNAL_SERVER_ERROR } from './responses'
 
@@ -24,9 +24,20 @@ export const loginCaseUse = async (settings: unknown): Promise<HTTPReturn> => {
     if (!credential) return RESPONSE_UNAUTHORIZED
     const accessToken = auth.login(s.body.email, s.body.password, credential)
 
+    if (!credential.enabled) {
+      return {
+        response: {
+          token: accessToken,
+          redirect: '/wait-list'
+        },
+        code: statusHTTP.OK
+      }  
+    }
+
     return {
       response: {
-        token: accessToken
+        token: accessToken,
+        redirect: '/cities'
       },
       code: statusHTTP.OK
     }

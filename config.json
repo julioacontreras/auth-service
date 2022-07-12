@@ -1,6 +1,5 @@
 {
     "basePath": "/api",
-    "port": 4000,
     "logger": {
         "language": "en",
         "colors": true,

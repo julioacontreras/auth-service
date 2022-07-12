@@ -10,4 +10,5 @@ export type UserEntity = {
     rating: number
     coins: number
     createAt: string
+    enabled: boolean
 }

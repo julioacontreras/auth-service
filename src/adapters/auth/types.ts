@@ -2,6 +2,7 @@ export type Credential = {
     email: string;
     password: string;
     salt: string;
+    enabled?: string;
 }
 
 export type FunctionReturnBoolean = () => boolean

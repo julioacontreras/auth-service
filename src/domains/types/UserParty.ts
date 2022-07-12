@@ -1,4 +1,4 @@
-export type UserPartyEntity = {
+export type UserPartyType = {
     id: string
     name: string
     email: string
