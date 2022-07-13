@@ -1,0 +1,12 @@
+version: '3.1'
+services:
+  database:
+    image: mongo
+    container_name: 'mongo-database'
+    restart: always
+    environment:
+      MONGO_INITDB_DATABASE: vip
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: admin
+    ports:
+      - '27017-27019:27017-27019'

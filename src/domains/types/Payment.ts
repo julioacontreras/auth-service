@@ -1,4 +1,4 @@
-export type UserType = {
+export type Payment = {
     stripeId: string
     payments: [
         {

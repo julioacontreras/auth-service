@@ -3,7 +3,7 @@ import { useSecurity } from './services/security'
 import { useToken } from './services/token'
 import { ResponsePrepareRegister } from '@/adapters/auth/types'
 
-export async function prepareToRegister (
+export async function createPassword (
   credential: Credential,
   thisEmailExistis: FunctionEmailExist,
 ): Promise<ResponsePrepareRegister> {

@@ -16,7 +16,8 @@ async function useDatabase (): Promise<Database> {
         const model = useUserModel()
         return {
           findByEmail: model.findByEmail,
-          register: model.register
+          register: model.register,
+          update: model.update
         }
       } 
     }
