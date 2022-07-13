@@ -4,46 +4,52 @@ import { ResponsePrepareRegister } from '@/adapters/auth/types'
 import { HTTPReturn } from '@/adapters/serverHTTP/types'
 import { statusHTTP } from '@/adapters/serverHTTP'
 import { database } from '@/adapters/database'
+
 import { User } from '@/domains/types/User'
-import { Password } from '@/domains/types/Password'
 
 import { RESPONSE_INTERNAL_SERVER_ERROR } from './responses'
 
 type SettingsRegister = {
     body: {
-      name: string
-      email: string
+      apiKey: string
       password: string
-      type: string
+      email: string
     }
 }
 
-export const createPasswordCaseUse = async (settings: unknown): Promise<HTTPReturn> => {
+export const resetPasswordCaseUse = async (settings: unknown): Promise<HTTPReturn> => {
   try {
     const s = settings as SettingsRegister
+    const userModel = database.models.User()
+    const user = await userModel.findByEmail(s.body.email) as User
+
+    if (!user?._id) { throw 'Email not exist, is not possible create password' }
 
     const result = await auth.createPassword(
       s.body.password,
       s.body.email
     ) as ResponsePrepareRegister
 
-    const userModel = database.models.User()
+    await userModel.update<User>(
+      user._id,
+      {
+        password: result.password,
+        salt: result.salt
+      } as User)
 
-    const user = await userModel.findByEmail(s.body.email) as User
-
-    if (user._id) {
-      userModel.update<Password>(
-        user._id,
-        {
-          password: result.password,
-          salt: result.salt
-        }
-      )
+    if (!user.enabled) {
+      return {
+        response: {
+          url: '/response/waiting-list'
+        },
+        code: statusHTTP.OK
+      }        
     }
 
     return {
       response: {
-        token: result.accessToken
+        accessToken: result.accessToken,
+        url: '/cities'
       },
       code: statusHTTP.OK
     }
@@ -52,5 +58,4 @@ export const createPasswordCaseUse = async (settings: unknown): Promise<HTTPRetu
     logger.error(e as string)
     return RESPONSE_INTERNAL_SERVER_ERROR  
   }
-
 }

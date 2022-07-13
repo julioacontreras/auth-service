@@ -14,19 +14,21 @@ type SettingsRegister = {
     }
 }
 
+async function thisEmailExists (email: string): Promise<boolean> {
+  const userModel = database.models.User()
+  const user = await userModel.findByEmail<User>(email)
+  return Boolean(user)
+}
+
+
 export const registerCaseUse = async (settings: unknown): Promise<HTTPReturn> => {
   try {
     const s = settings as SettingsRegister
+    const email = s.body.email
 
     const userModel = database.models.User()
 
-    const user = await userModel.findByEmail(s.body.email)
-    if (user) {
-      return {
-        response: {},
-        code: statusHTTP.UNAUTHORIZED
-      }  
-    }
+    if (await thisEmailExists(email)) throw 'Email exist, is not possible create user'
 
     await userModel.register<User>({
       name: s.body.name,

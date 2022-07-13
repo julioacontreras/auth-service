@@ -5,6 +5,6 @@ content-type: application/json
     "name": "Ken",
     "email": "ken2@vip.es",
     "password": "1234",
-    "type": "client"
+    "type": "boss"
 }
 

@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb'
 import { database } from '../connector'
 import { logger } from '@/adapters/logger'
 
@@ -21,9 +22,9 @@ export function useUserModel () {
     }
   }
 
-  async function update <T> (id: string, user: T): Promise<{ id:string }> {
+  async function update <T> (_id: string, user: T): Promise<{ id:string }> {
     try {
-      const userSaved = await User.updateOne({ id }, user) as unknown as T
+      const userSaved = await User.updateOne({ _id: new ObjectId(_id) }, { $set: user }) as unknown as T
       const userSavedResponse = userSaved as unknown as ResponseRegister
       return { id: userSavedResponse.id }
     } catch (err) {

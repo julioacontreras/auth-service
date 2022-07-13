@@ -15,9 +15,8 @@ type SettingsLogin = {
     }
 }
 
-export const loginCaseUse = async (settings: unknown): Promise<HTTPReturn> => {
+export const signinCaseUse = async (settings: unknown): Promise<HTTPReturn> => {
   try {
-
     const s = settings as SettingsLogin
     const UserModel = database.models.User()
     const credential = await UserModel.findByEmail<User>(s.body.email) as unknown as Credential
@@ -28,7 +27,7 @@ export const loginCaseUse = async (settings: unknown): Promise<HTTPReturn> => {
       return {
         response: {
           token: accessToken,
-          redirect: '/wait-list'
+          url: '/response/wait-list'
         },
         code: statusHTTP.OK
       }  
@@ -37,7 +36,7 @@ export const loginCaseUse = async (settings: unknown): Promise<HTTPReturn> => {
     return {
       response: {
         token: accessToken,
-        redirect: '/cities'
+        url: '/cities'
       },
       code: statusHTTP.OK
     }
