@@ -6,7 +6,12 @@ import { HTTPReturn } from '@/adapters/serverHTTP/types'
 import { database } from '@/adapters/database'
 import { User } from '@/domains/types/User'
 
-import { RESPONSE_UNAUTHORIZED, RESPONSE_INTERNAL_SERVER_ERROR } from './responses'
+import { 
+  RESPONSE_UNAUTHORIZED,
+  RESPONSE_INTERNAL_SERVER_ERROR,
+  RESPONSE_NO_PASSWORD,
+  RESPONSE_WAIT_LIST
+} from './responses'
 
 type SettingsLogin = {
     body: {
@@ -20,18 +25,12 @@ export const signinCaseUse = async (settings: unknown): Promise<HTTPReturn> => {
     const s = settings as SettingsLogin
     const UserModel = database.models.User()
     const credential = await UserModel.findByEmail<User>(s.body.email) as unknown as Credential
-    if (!credential) return RESPONSE_UNAUTHORIZED
-    const accessToken = auth.login(s.body.email, s.body.password, credential)
 
-    if (!credential.enabled) {
-      return {
-        response: {
-          token: accessToken,
-          url: '/response/wait-list'
-        },
-        code: statusHTTP.OK
-      }  
-    }
+    if (!credential) return RESPONSE_UNAUTHORIZED
+    if (!credential.password) return RESPONSE_NO_PASSWORD
+    if (!credential.enabled) return RESPONSE_WAIT_LIST
+
+    const accessToken = auth.login(s.body.email, s.body.password, credential)
 
     return {
       response: {
