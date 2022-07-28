@@ -14,11 +14,6 @@ export function useRoutesAuth () {
     route: '/api/auth/signin'
   })
     
-  serverHTTP.add('logout', {
-    useCase: logoutCaseUse,
-    route: '/api/auth/logout'
-  })
-
   serverHTTP.add('register', {
     useCase: registerCaseUse,
     route: '/api/auth/register'
