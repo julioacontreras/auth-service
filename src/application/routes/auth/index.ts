@@ -1,25 +1,19 @@
 import { serverHTTP } from '@/adapters/serverHTTP'
 
 import { loginCaseUse } from '@/application/useCases/login'
-import { logoutCaseUse } from '@/application/useCases/logout'
 import { registerCaseUse } from '@/application/useCases/register'
 import { isAuthenticatedCaseUse } from '@/application/useCases/isAuthenticated'
 
 export function useRoutesAuth () {
    
-  serverHTTP.add('login', {
+  serverHTTP.add('signin', {
     useCase: loginCaseUse,
-    route: '/api/auth/login'
-  })
-    
-  serverHTTP.add('logout', {
-    useCase: logoutCaseUse,
-    route: '/api/auth/logout'
+    route: '/api/auth/signin'
   })
 
-  serverHTTP.add('register', {
+  serverHTTP.add('signup', {
     useCase: registerCaseUse,
-    route: '/api/auth/register'
+    route: '/api/auth/signup'
   })
 
   serverHTTP.add('isAuthenticated', {

@@ -35,16 +35,10 @@ export const registerCaseUse = async (settings: unknown): Promise<HTTPReturn> =>
 
     const userModel = database.models.User()
     userModel.register({
-      name: s.body.name,
       email: s.body.email,
       password: result.password,
-      type: s.body.type,
       salt: result.salt,
-      city: '',
-      aboutMe: '',
-      rating: 0,
-      coins: 0,
-      createAt: ''
+      createAt: new Date().getTime()
     })
 
     return {
