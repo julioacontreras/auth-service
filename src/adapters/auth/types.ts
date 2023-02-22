@@ -1,4 +1,5 @@
 export type Credential = {
+    _id?: string;
     email: string;
     password: string;
     salt: string;

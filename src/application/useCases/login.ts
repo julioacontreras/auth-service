@@ -31,7 +31,8 @@ export const loginCaseUse = async (settings: unknown): Promise<HTTPReturn> => {
 
     return {
       response: {
-        token: accessToken
+        token: accessToken,
+        id: credential._id
       },
       code: statusHTTP.OK
     }
