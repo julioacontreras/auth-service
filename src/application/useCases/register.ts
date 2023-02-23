@@ -34,7 +34,7 @@ export const registerCaseUse = async (settings: unknown): Promise<HTTPReturn> =>
     ) as ResponsePrepareRegister
 
     const userModel = database.models.User()
-    userModel.register({
+    const response = await userModel.register({
       email: s.body.email,
       password: result.password,
       salt: result.salt,
@@ -43,7 +43,8 @@ export const registerCaseUse = async (settings: unknown): Promise<HTTPReturn> =>
 
     return {
       response: {
-        token: result.accessToken
+        token: result.accessToken,
+        id: response.id
       },
       code: statusHTTP.OK
     }

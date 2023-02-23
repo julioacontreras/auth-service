@@ -1,5 +1,6 @@
 import fastify from 'fastify'
 
+import { logger } from '@/adapters/logger'
 import { UseCaseMap } from '@/adapters/serverHTTP/types'
 
 import { createUseCases } from './createUseCases'
@@ -28,9 +29,9 @@ export function startServer (useCases: UseCaseMap): void {
   }
   server.listen(port, (err, address) => {
     if (err) {
-      console.error(err)
+      logger.error(err.message)
       process.exit(1)
     }
-    console.info(`Server listening at ${address}`)
+    logger.info(`Server listening at ${address}`)
   })
 }

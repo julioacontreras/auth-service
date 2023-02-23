@@ -1,3 +1,5 @@
+import { logger } from '@/adapters/logger'
+
 import { UserSchema } from '@/adapters/database/schemas/UserSchema'
 
 import { database } from '../connector'
@@ -11,12 +13,13 @@ export function useUserModel () {
 
   async function register (user: UserSchema): Promise<{ id:string }> {
     try {
-      const userSaved = await User.insertOne(user) as unknown as UserSchema
+      const userSaved = await User.insertOne(user)
       return {
-        id: userSaved?.id || ''
+        id: userSaved?.insertedId.toString() || ''
       }
 
-    } catch (err) {
+    } catch (err: any) {
+      logger.error(err.message)
       return {
         id: ''
       }
