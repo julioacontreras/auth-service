@@ -1,4 +1,4 @@
-import { useSecurity } from '../services/security'
+import { useSecurity } from '../../../../src/infrastructure/auth/core/services/security'
 
 test('should generate two diffrents values ', async () => {
   const  { generateSalt } = useSecurity()

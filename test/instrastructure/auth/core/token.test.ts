@@ -1,4 +1,4 @@
-import { useToken } from '../services/token'
+import { useToken } from '../../../../src/infrastructure/auth/core/services/token'
 
 test('should token return valid ', async () => {
   const token = useToken('token-secret')

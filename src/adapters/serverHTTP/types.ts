@@ -19,7 +19,7 @@ export type HTTPRequest = {
  *  Use case function. Here have use case instructions to be executed.
  *  
  */
-export type UseCaseFunction = (settings: unknown) => Promise<HTTPReturn> | HTTPReturn;
+export type UseCaseFunction = (request: any) => Promise<HTTPReturn> | HTTPReturn; // eslint-disable-line
 
 /** @type UseCaseRoute
  *  Use case settings. Here have function and route to each use case.

@@ -1,6 +1,5 @@
-import { logger } from '@/adapters/logger'
-
-import { UserSchema } from '@/adapters/database/schemas/UserSchema'
+import { logger } from '../../../../adapters/logger'
+import { UserSchema } from '../../../../adapters/database/schemas/UserSchema'
 
 import { database } from '../connector'
 
@@ -18,7 +17,7 @@ export function useUserModel () {
         id: userSaved?.insertedId.toString() || ''
       }
 
-    } catch (err: any) {
+    } catch (err: any) { // eslint-disable-line
       logger.error(err.message)
       return {
         id: ''

@@ -1,11 +1,12 @@
 import { MongoClient, Db } from 'mongodb'
-import { logger } from '@/adapters/logger'
+
+import { logger } from '../../../adapters/logger'
 
 export let database: Db
 export let client: MongoClient
 
 export async function run (uri: string): Promise<void> {
-  const databaseName = process.env.DATABASE_NAME
+  const databaseName = process.env.AUTH_SERVICE_DATABASE_NAME
   if (!databaseName) {
     throw 'Dont have database name'
   }

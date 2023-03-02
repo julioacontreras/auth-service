@@ -17,6 +17,3 @@ dist/
 *.njsproj
 *.sln
 *.sw?
-
-#apidoc
-documentation

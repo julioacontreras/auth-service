@@ -1,4 +1,4 @@
-import { serverHTTP } from '@/adapters/serverHTTP'
+import { serverHTTP } from '../adapters/serverHTTP'
 
 import { useRoutes } from './routes'
 

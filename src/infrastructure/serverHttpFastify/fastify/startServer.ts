@@ -1,7 +1,7 @@
 import fastify from 'fastify'
 
-import { logger } from '@/adapters/logger'
-import { UseCaseMap } from '@/adapters/serverHTTP/types'
+import { logger } from '../../../adapters/logger'
+import { UseCaseMap } from '../../../adapters/serverHTTP/types'
 
 import { createUseCases } from './createUseCases'
 
@@ -23,7 +23,7 @@ export function startServer (useCases: UseCaseMap): void {
   // -------------------------
   //   start server
   // -------------------------
-  const port = process.env.PORT
+  const port = process.env.AUTH_SERVICE_PORT
   if (!port) {
     throw 'Dont have port selected in server'
   }

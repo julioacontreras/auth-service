@@ -1,5 +1,5 @@
-import { Auth } from '@/adapters/auth/Auth'
-import { setAuth } from '@/adapters/auth'
+import { Auth } from '../../adapters/auth/Auth'
+import { setAuth } from '../../adapters/auth'
 
 import { useLogout } from './core/logout'
 import { login } from './core/login'

@@ -1,21 +1,40 @@
-import { logger } from '@/adapters/logger'
-import { HTTPReturn } from '@/adapters/serverHTTP/types'
-import { auth } from '@/adapters/auth'
-import { statusHTTP } from '@/adapters/serverHTTP'
+import { logger } from '../../adapters/logger'
+import { HTTPReturn } from '../../adapters/serverHTTP/types'
+import { auth } from '../../adapters/auth'
+import { statusHTTP } from '../../adapters/serverHTTP'
+import { getSchemaRequestIsAuthenticated, prepareErrorParamsRequest } from '../../domain/shared/validate'
 
-type SettingsRegister = {
+type SettingsIsAuthenticated = {
     body: {
       accessToken: string
       email: string
     }
 }
 
-export const isAuthenticatedCaseUse = async (settings: unknown): Promise<HTTPReturn> => {
-  const s = settings as SettingsRegister
+/**
+ * @api {post} /api/auth/is-authenticated Is authenticated
+ * @apiName is authenticated
+ * @apiGroup Auth
+ *
+ * @apiBody {string} accessToken Access token
+ * @apiBody {string} email Email
+ *
+ */
+export const isAuthenticatedCaseUse = async (request: SettingsIsAuthenticated): Promise<HTTPReturn> => {
+  const schema = getSchemaRequestIsAuthenticated()
+  const { error } = schema.validate(request.body)
+  if (error){
+    return {
+      response: prepareErrorParamsRequest(error),
+      code: statusHTTP.INTERNAL_SERVER_ERROR,
+    }
+  }
+
+
   try {
     return {
       response: {},
-      code: await auth.isAuthenticated(s.body.accessToken) ? statusHTTP.OK : statusHTTP.UNAUTHORIZED
+      code: await auth.isAuthenticated(request.body.accessToken) ? statusHTTP.OK : statusHTTP.UNAUTHORIZED
     }    
   } catch(e) {
     logger.error(e as string)

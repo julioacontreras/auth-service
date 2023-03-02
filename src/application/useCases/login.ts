@@ -1,9 +1,10 @@
-import { logger } from '@/adapters/logger'
-import { auth } from '@/adapters/auth'
-import { Credential } from '@/adapters/auth/types'
-import { statusHTTP } from '@/adapters/serverHTTP'
-import { HTTPReturn } from '@/adapters/serverHTTP/types'
-import { database } from '@/adapters/database'
+import { logger } from '../../adapters/logger'
+import { auth } from '../../adapters/auth'
+import { Credential } from '../../adapters/auth/types'
+import { statusHTTP } from '../../adapters/serverHTTP'
+import { HTTPReturn } from '../../adapters/serverHTTP/types'
+import { database } from '../../adapters/database'
+import { getSchemaRequestLogin, prepareErrorParamsRequest } from '../../domain/shared/validate'
 
 type SettingsLogin = {
     body: {
@@ -12,13 +13,28 @@ type SettingsLogin = {
     }
 }
 
-export const loginCaseUse = async (settings: unknown): Promise<HTTPReturn> => {
+/**
+ * @api {post} /api/auth/login User login
+ * @apiName login
+ * @apiGroup Auth
+ *
+ * @apiBody {string} email Email
+ * @apiBody {string} password Password
+ *
+ */
+export const loginCaseUse = async (request: SettingsLogin): Promise<HTTPReturn> => {
+  const schema = getSchemaRequestLogin()
+  const { error } = schema.validate(request.body)
+  if (error){
+    return {
+      response: prepareErrorParamsRequest(error),
+      code: statusHTTP.INTERNAL_SERVER_ERROR,
+    }
+  }
+
   try {
-
-    const s = settings as SettingsLogin
-
     const UserModel = database.models.User()
-    const credential = await UserModel.findByEmail(s.body.email) as unknown as Credential
+    const credential = await UserModel.findByEmail(request.body.email) as unknown as Credential
     
     if (!credential) {
       return {
@@ -27,7 +43,7 @@ export const loginCaseUse = async (settings: unknown): Promise<HTTPReturn> => {
       } 
     }
 
-    const accessToken = auth.login(s.body.email, s.body.password, credential)
+    const accessToken = auth.login(request.body.email, request.body.password, credential)
 
     return {
       response: {

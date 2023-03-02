@@ -1,13 +1,15 @@
-import { Credential, FunctionEmailExist } from '@/adapters/auth/types'
+import { Credential, FunctionEmailExist } from '../../../adapters/auth/types'
+import { ResponsePrepareRegister } from '../../../adapters/auth/types'
+import { TOKEN_SECRET } from './constants'
+
 import { useSecurity } from './services/security'
 import { useToken } from './services/token'
-import { ResponsePrepareRegister } from '@/adapters/auth/types'
 
 export async function prepareToRegister (
   credential: Credential,
   thisEmailExistis: FunctionEmailExist,
 ): Promise<ResponsePrepareRegister> {
-  const tokenSecret = process.env.TOKEN_SECRET
+  const tokenSecret = TOKEN_SECRET
 
   if (!tokenSecret) {
     throw 'Dont have secret token'

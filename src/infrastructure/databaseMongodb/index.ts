@@ -1,11 +1,11 @@
-import { Database } from '@/adapters/database/Database'
-import { setDatabase } from '@/adapters/database'
+import { Database } from '../../adapters/database/Database'
+import { setDatabase } from '../../adapters/database'
 
 import { run } from './mongodb/connector'
 import { useUserModel } from './mongodb/models/user'
 
 async function useDatabase (): Promise<Database> {
-  const urlConnection = process.env.MONGO_CONNECTION 
+  const urlConnection = process.env.AUTH_SERVICE_MONGO_CONNECTION 
 
   if (!urlConnection) {
     throw 'Not exist url connection to mongoDB'

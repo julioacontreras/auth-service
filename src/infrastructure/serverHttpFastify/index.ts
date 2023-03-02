@@ -1,6 +1,6 @@
-import { setServerHTTP } from '@/adapters/serverHTTP'
-import { UseCaseMap, UseCaseRoute, UseCaseName } from '@/adapters/serverHTTP/types'
-import { ServerHTTP } from '@/adapters/serverHTTP/ServerHTTP'
+import { setServerHTTP } from '../../adapters/serverHTTP'
+import { UseCaseMap, UseCaseRoute, UseCaseName } from '../../adapters/serverHTTP/types'
+import { ServerHTTP } from '../../adapters/serverHTTP/ServerHTTP'
 
 import startServer from './fastify'
 

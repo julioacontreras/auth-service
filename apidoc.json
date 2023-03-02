@@ -2,6 +2,6 @@
     "name": "API",
     "version": "1.0.0",
     "description": "API",
-    "title": "Back",
+    "title": "Auth service",
     "url" : "https://api.github.com/v1"
   }
