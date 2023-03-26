@@ -1,6 +1,6 @@
-# Backend
+# Auth Service
 
-Backend - API v1.0
+Is a simple auth service authentication.
 
 ## 🚀 Get started
 
