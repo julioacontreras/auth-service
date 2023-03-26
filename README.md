@@ -1,6 +1,6 @@
 # Auth Service
 
-Is a simple auth service authentication.
+Is a minimalist auth service authentication.
 
 ## 🚀 Get started
 
