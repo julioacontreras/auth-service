@@ -18,10 +18,8 @@ export const getSchemaRequestLogin = () => {
 
 export const getSchemaRequestRegister = () => {
   return Joi.object({
-    name: Joi.string().required(),
     email: Joi.string().required(),
     password: Joi.string().required(),
-    type: Joi.string().required(),
   })
 }
 

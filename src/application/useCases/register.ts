@@ -8,10 +8,8 @@ import { getSchemaRequestRegister, prepareErrorParamsRequest } from '../../domai
 
 type SettingsRegister = {
     body: {
-      name: string
       email: string
       password: string
-      type: string
     }
 }
 

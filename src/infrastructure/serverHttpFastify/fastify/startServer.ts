@@ -27,7 +27,10 @@ export function startServer (useCases: UseCaseMap): void {
   if (!port) {
     throw 'Dont have port selected in server'
   }
-  server.listen(port, (err, address) => {
+  server.listen({
+    port: Number(port),
+    host: '0.0.0.0'
+  }, (err, address) => {
     if (err) {
       logger.error(err.message)
       process.exit(1)
