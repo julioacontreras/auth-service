@@ -5,8 +5,6 @@ Is a minimalist auth service authentication.
 ## 🚀 Get started
 
 ```console
-    npm install -g win-node-env 
-    npm install -g nodemon
     npm install
 
     # run application in develop mode

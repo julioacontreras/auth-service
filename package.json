@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "start": "node --use_strict dist",
-    "build": "rm -rf dist && tsc --p ./tsconfig.build.json",
+    "build": "npx rimraf dist && tsc --p ./tsconfig.build.json",
     "build:dev": "npm run build && npm run start",
     "dev": "npx nodemon --config nodemon.json --quiet --exec \"npm run build:dev\"",
     "lint": "eslint --ignore-path .gitignore ./src --ext .ts",
